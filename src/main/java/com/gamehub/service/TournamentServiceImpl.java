@@ -1,11 +1,14 @@
 package com.gamehub.service;
 
+import com.gamehub.dto.tournament.TournamentRequestDto;
+import com.gamehub.dto.tournament.TournamentResponseDto;
 import com.gamehub.repository.TournamentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class TournamentServiceImpl implements TournamentService {
@@ -19,17 +22,38 @@ public class TournamentServiceImpl implements TournamentService {
 
     //Creación de un torneo
     @Override
-    public  Tournament createTournament(TournamentDto dto) {
+    public TournamentResponseDto createTournament(TournamentRequestDto dto) {
         Tournament tournament = new Tournament();
+        tournament.setId(UUID.randomUUID());
         tournament.setName(dto.getName());
-        tournament.setDate(dto.getDate());
-        return tournamentRepository.save(tournament);
+        tournament.setMaxPlayers(dto.getMaxPlayers());
+        tournament.setStatus(Status.CREATED);
+
+        Tournament saved = tournamentRepository.save(tournament);
+
+        TournamentResponseDto response = new TournamentResponseDto();
+        response.setId(saved.getId());
+        response.setName(saved.getName());
+        response.setMaxPlayers(saved.getMaxPlayers());
+        response.setStatus(saved.getStatus());
+
+        return  response;
+
     }
 
     //Obtener todos los torneos
     @Override
-    public List<Tournament> getAllTournaments() {
-        return tournamentRepository.findAll();
+    public List<TournamentResponseDto> getAllTournaments() {
+        return tournamentRepository.findAll().stream()
+                .map(tournament -> {
+                    TournamentResponseDto dto = new TournamentResponseDto();
+                    dto.setId(tournament.getId());
+                    dto.setName(tournament.getName());
+                    dto.setMaxPlayers(tournament.getMaxPlayers());
+                    dto.setStatus(tournament.getStatus());
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 
     //Obtener un torneo por ID
