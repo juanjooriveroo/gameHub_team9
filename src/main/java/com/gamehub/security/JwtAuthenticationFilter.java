@@ -1,7 +1,6 @@
 package com.gamehub.security;
 
 import com.gamehub.model.User;
-
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -42,7 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         UsernamePasswordAuthenticationToken authToken =
                 new UsernamePasswordAuthenticationToken(
-                        user.getUUID(),
+                        user.getId(),
                         null,
                         authorities
                 );

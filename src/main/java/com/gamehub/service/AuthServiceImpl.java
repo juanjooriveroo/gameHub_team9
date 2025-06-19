@@ -3,13 +3,17 @@ package com.gamehub.service;
 import com.gamehub.dto.AuthResponseDto;
 import com.gamehub.dto.LoginRequestDto;
 import com.gamehub.dto.RegisterRequestDto;
+import com.gamehub.exception.InvalidCredentialsException;
 import com.gamehub.exception.UserNotFoundException;
+import com.gamehub.model.Role;
+import com.gamehub.model.User;
 import com.gamehub.repository.UserRepository;
 import com.gamehub.security.JwtUtils;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
