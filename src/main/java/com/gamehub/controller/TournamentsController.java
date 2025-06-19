@@ -1,5 +1,6 @@
 package com.gamehub.controller;
 
+import com.gamehub.dto.tournament.TournamentDto;
 import com.gamehub.dto.tournament.TournamentRequestDto;
 import com.gamehub.dto.tournament.TournamentResponseDto;
 import com.gamehub.service.TournamentService;
@@ -38,9 +39,11 @@ public class TournamentsController {
 
     //Detalle de torneo
     @GetMapping("/{id}")
-    public String getTournamentDetails(@PathVariable UUID id) {
+    public ResponseEntity <TournamentDto> getTournamentById (@PathVariable UUID id) {
 
-        return null;
+        TournamentDto tournamentById = tournamentService.getTournamentById(id);
+
+        return ResponseEntity.ok(tournamentById);
     }
 
     //Unirse a torneo

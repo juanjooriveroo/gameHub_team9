@@ -1,5 +1,6 @@
 package com.gamehub.service;
 
+import com.gamehub.dto.tournament.TournamentDto;
 import com.gamehub.dto.tournament.TournamentRequestDto;
 import com.gamehub.dto.tournament.TournamentResponseDto;
 
@@ -12,7 +13,7 @@ public interface TournamentService {
 
     List<TournamentResponseDto> getAllTournaments();
 
-    Tournament getTournamentById(UUID tournamentId);
+    TournamentDto getTournamentById(UUID tournamentId);
 
     void joinTournament(UUID tournamentId, UUID userId);
 }

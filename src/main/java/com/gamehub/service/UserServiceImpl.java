@@ -4,6 +4,7 @@ import com.gamehub.dto.RegisterRequestDto;
 import com.gamehub.dto.UserDto;
 import com.gamehub.dto.UserPublicDto;
 import com.gamehub.exception.UserNotFoundException;
+import com.gamehub.mapper.UserMapper;
 import com.gamehub.repository.UserRepository;
 import com.gamehub.security.JwtUtils;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,8 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
 
+    private final UserMapper userMapper;
+
     //Método para obetener los datos del usuario autenticado
     @Override
     public UserDto getCurrentUser(){
@@ -29,14 +32,7 @@ public class UserServiceImpl implements UserService{
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found."));
 
-        UserDto userDto =new UserDto();
-        userDto.setUsername(user.getUsername());
-        userDto.setEmail(user.getEmail());
-        userDto.setRole(user.getRole());
-        userDto.setRank(user.getRank());
-        userDto.setPoints(user.getPoints());
-
-        return userDto;
+        return userMapper.toDto(user);
     }
 
     //Método para obtener el perfil público de un usuario por ID
@@ -45,13 +41,7 @@ public class UserServiceImpl implements UserService{
         User user = userRepository.findById(id)
                 .orElseTrow(()-> new UserNotFoundException("User not found."));
 
-        UserPublicDto dto = new UserPublicDto();
-        dto.setUsername(user.getUsername());
-        dto.setRank(user.getRank());
-        dto.setPoints(user.getPoints());
-
-        return dto;
+        return userMapper.userPublicDto(user);
     }
-
 
 }

@@ -1,9 +1,11 @@
 package com.gamehub.service;
 
+import com.gamehub.dto.tournament.TournamentDto;
 import com.gamehub.dto.tournament.TournamentRequestDto;
 import com.gamehub.dto.tournament.TournamentResponseDto;
+import com.gamehub.mapper.TournamentMapper;
 import com.gamehub.repository.TournamentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,56 +13,43 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class TournamentServiceImpl implements TournamentService {
 
-    //Inyección de dependencias mediante constructor
     private final TournamentRepository tournamentRepository;
 
-    public TournamentServiceImpl(TournamentRepository tournamentRepository) {
-        this.tournamentRepository = tournamentRepository;
-    }
+    private final TournamentMapper tournamentMapper;
 
     //Creación de un torneo
     @Override
     public TournamentResponseDto createTournament(TournamentRequestDto dto) {
-        Tournament tournament = new Tournament();
-        tournament.setId(UUID.randomUUID());
-        tournament.setName(dto.getName());
-        tournament.setMaxPlayers(dto.getMaxPlayers());
-        tournament.setStatus(Status.CREATED);
-
+        Tournament tournament = tournamentMapper.toEntity(dto);
         Tournament saved = tournamentRepository.save(tournament);
-
-        TournamentResponseDto response = new TournamentResponseDto();
-        response.setId(saved.getId());
-        response.setName(saved.getName());
-        response.setMaxPlayers(saved.getMaxPlayers());
-        response.setStatus(saved.getStatus());
-
-        return  response;
-
+        return tournamentMapper.toDto(saved);
     }
 
     //Obtener todos los torneos
     @Override
     public List<TournamentResponseDto> getAllTournaments() {
         return tournamentRepository.findAll().stream()
-                .map(tournament -> {
-                    TournamentResponseDto dto = new TournamentResponseDto();
-                    dto.setId(tournament.getId());
-                    dto.setName(tournament.getName());
-                    dto.setMaxPlayers(tournament.getMaxPlayers());
-                    dto.setStatus(tournament.getStatus());
-                    return dto;
-                })
+                .map(tournamentMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     //Obtener un torneo por ID
     @Override
-    public Tournament getTournamentById(UUID id) {
-        return tournamentRepository.findById(id)
+    public TournamentDto getTournamentById(UUID id) {
+        Tournament tournament = tournamentRepository.findById(id)
                 .orElseThrow(() -> new TournamentNotFoundException(id));
+
+        TournamentDto dto = new TournamentDto();
+        dto.setId(tournament.getId());
+        dto.setName(tournament.getName());
+        dto.setMaxPlayers(tournament.getMaxPlayers());
+        dto.setStatus(tournament.getStatus());
+        dto.setPlayers(tournament.getPlayers());
+
+        return dto;
     }
 
     //Unirse a un torneo
