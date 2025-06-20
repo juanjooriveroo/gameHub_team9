@@ -1,8 +1,8 @@
 package com.gamehub.security;
 
 import com.gamehub.exception.UserNotFoundException;
-import com.gamehub.repository.UserRepository;
 import com.gamehub.model.User;
+import com.gamehub.repository.UserRepository;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -33,7 +33,7 @@ public class JwtUtils {
 
     public String generateToken(User user) {
         String token = Jwts.builder()
-                .setSubject(user.getUUID().toString())
+                .setSubject(user.getId().toString())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + accessExpirationMs))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)

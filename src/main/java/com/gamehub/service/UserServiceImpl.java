@@ -5,6 +5,7 @@ import com.gamehub.dto.UserDto;
 import com.gamehub.dto.UserPublicDto;
 import com.gamehub.exception.UserNotFoundException;
 import com.gamehub.mapper.UserMapper;
+import com.gamehub.model.User;
 import com.gamehub.repository.UserRepository;
 import com.gamehub.security.JwtUtils;
 import lombok.NoArgsConstructor;
@@ -39,9 +40,10 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserPublicDto getUserById(UUID id){
         User user = userRepository.findById(id)
-                .orElseTrow(()-> new UserNotFoundException("User not found."));
+                .orElseThrow(()-> new UserNotFoundException("User not found."));
 
         return userMapper.userPublicDto(user);
     }
+
 
 }

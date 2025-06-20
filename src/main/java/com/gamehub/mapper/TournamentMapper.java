@@ -5,6 +5,7 @@ import com.gamehub.dto.UserPublicDto;
 import com.gamehub.dto.tournament.TournamentDto;
 import com.gamehub.dto.tournament.TournamentRequestDto;
 import com.gamehub.dto.tournament.TournamentResponseDto;
+import com.gamehub.model.Tournament;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

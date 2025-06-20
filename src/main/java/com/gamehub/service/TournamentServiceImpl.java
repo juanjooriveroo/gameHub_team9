@@ -3,12 +3,19 @@ package com.gamehub.service;
 import com.gamehub.dto.tournament.TournamentDto;
 import com.gamehub.dto.tournament.TournamentRequestDto;
 import com.gamehub.dto.tournament.TournamentResponseDto;
+import com.gamehub.exception.TournamentNotFoundException;
+import com.gamehub.exception.UserAlreadyJoinedException;
+import com.gamehub.exception.UserNotFoundException;
 import com.gamehub.mapper.TournamentMapper;
+import com.gamehub.model.Tournament;
+import com.gamehub.model.User;
 import com.gamehub.repository.TournamentRepository;
+import com.gamehub.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -19,6 +26,8 @@ public class TournamentServiceImpl implements TournamentService {
     private final TournamentRepository tournamentRepository;
 
     private final TournamentMapper tournamentMapper;
+
+    private final UserRepository userRepository;
 
     //Creación de un torneo
     @Override
@@ -43,7 +52,7 @@ public class TournamentServiceImpl implements TournamentService {
                 .orElseThrow(() -> new TournamentNotFoundException(id));
 
         TournamentDto dto = new TournamentDto();
-        dto.setId(tournament.getId());
+        dto.setId(tournament.getId().toString());
         dto.setName(tournament.getName());
         dto.setMaxPlayers(tournament.getMaxPlayers());
         dto.setStatus(tournament.getStatus());
@@ -55,11 +64,16 @@ public class TournamentServiceImpl implements TournamentService {
     //Unirse a un torneo
     @Override
     public void joinTournament(UUID tournamentId, UUID userId) {
-        Tournament tournament = getTournamentById(tournamentId);
-        if (tournament.getParticipants().contains(userId)) {
+        Tournament tournament = tournamentRepository.findById(tournamentId)
+                .orElseThrow(()-> new TournamentNotFoundException(tournamentId));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        if (tournament.getPlayers().contains(user)) {
             throw new UserAlreadyJoinedException(userId, tournamentId);
         }
-        tournament.getParticipants().add(userId);
+
+        tournament.getPlayers().add(user);
         tournamentRepository.save(tournament);
     }
 

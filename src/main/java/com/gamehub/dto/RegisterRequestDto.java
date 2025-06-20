@@ -1,5 +1,6 @@
 package com.gamehub.dto;
 
+import com.gamehub.model.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

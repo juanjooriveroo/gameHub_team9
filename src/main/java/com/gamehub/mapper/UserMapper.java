@@ -2,6 +2,7 @@ package com.gamehub.mapper;
 
 import com.gamehub.dto.UserDto;
 import com.gamehub.dto.UserPublicDto;
+import com.gamehub.model.User;
 import org.springframework.stereotype.Component;
 
 @Component

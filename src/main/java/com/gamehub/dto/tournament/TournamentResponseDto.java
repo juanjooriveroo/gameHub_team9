@@ -1,5 +1,6 @@
 package com.gamehub.dto.tournament;
 
+import com.gamehub.model.Status;
 import jdk.jshell.Snippet;
 import lombok.Data;
 
