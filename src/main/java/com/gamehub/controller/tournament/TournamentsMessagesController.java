@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/api/tournaments/{id}/messages")
+@RequestMapping("/tournaments/{id}/messages")
 public class TournamentsMessagesController {
 
     //Listar mensajes del torneo

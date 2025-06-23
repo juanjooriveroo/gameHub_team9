@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/api/matches/{id}/messages")
+@RequestMapping("/matches/{id}/messages")
 public class MatchesMessagesController {
 
     //Listar mensajes de la partida

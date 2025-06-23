@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/tournaments/{id}/ranking")
+@RequestMapping("/tournaments/{id}/ranking")
 public class TournamentsRankingController {
 
     // Obtener clasificación actual

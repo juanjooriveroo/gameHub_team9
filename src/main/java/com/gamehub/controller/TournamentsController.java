@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/tournaments")
+@RequestMapping("/tournaments")
 @RequiredArgsConstructor
 public class TournamentsController {
 

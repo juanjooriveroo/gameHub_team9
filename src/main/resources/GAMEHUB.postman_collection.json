@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "b3e88717-4ecc-4ebb-83e7-5b156a753edc",
+		"name": "GAMEHUB",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42600308"
+	},
+	"item": [
+		{
+			"name": "USERS",
+			"item": [
+				{
+					"name": "ME",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4MTgyYTMxMC1mZTEwLTQyNGEtODU5ZS05Zjk0ZmZkMzAwOTgiLCJpYXQiOjE3NTA2OTIwMTMsImV4cCI6MTc1MDY5NTYxM30.bqw4rj4WN_JrxqfEO1_e0Wwip2nOclIBNpNQ2PguPwI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Bearer",
+								"value": " eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4MTgyYTMxMC1mZTEwLTQyNGEtODU5ZS05Zjk0ZmZkMzAwOTgiLCJpYXQiOjE3NTAzNjg0NTUsImV4cCI6MTc1MDM3MjA1NX0.RoZrMfvX43H9uqvooOHoj8DJN1cLgXArx5sRgN5IoOY ",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/users/me",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4MTgyYTMxMC1mZTEwLTQyNGEtODU5ZS05Zjk0ZmZkMzAwOTgiLCJpYXQiOjE3NTAzNjg0NTUsImV4cCI6MTc1MDM3MjA1NX0.RoZrMfvX43H9uqvooOHoj8DJN1cLgXArx5sRgN5IoOY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Bearer",
+								"value": " eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4MTgyYTMxMC1mZTEwLTQyNGEtODU5ZS05Zjk0ZmZkMzAwOTgiLCJpYXQiOjE3NTAzNjg0NTUsImV4cCI6MTc1MDM3MjA1NX0.RoZrMfvX43H9uqvooOHoj8DJN1cLgXArx5sRgN5IoOY ",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/users/8182a310-fe10-424a-859e-9f94ffd30098",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"8182a310-fe10-424a-859e-9f94ffd30098"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AUTH",
+			"item": [
+				{
+					"name": "REGISTER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"player123\",\n  \"email\": \"player123@example.com\",\n  \"password\": \"securePassword123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/auth/register",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"player123@example.com\",\n  \"password\": \"securePassword123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "Bearer ",
+			"value": "",
+			"type": "default"
+		}
+	]
+}

@@ -3,13 +3,14 @@ package com.gamehub.service;
 import com.gamehub.dto.RegisterRequestDto;
 import com.gamehub.dto.UserDto;
 import com.gamehub.dto.UserPublicDto;
+import com.gamehub.exception.BadTokenException;
 import com.gamehub.exception.UserNotFoundException;
-import com.gamehub.mapper.UserMapper;
 import com.gamehub.model.User;
 import com.gamehub.repository.UserRepository;
-import com.gamehub.security.JwtUtils;
-import lombok.NoArgsConstructor;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -21,30 +22,62 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    private final UserMapper userMapper;
-
-    //Método para obetener los datos del usuario autenticado
+    @Transactional
     @Override
     public UserDto getCurrentUser(){
+        log.info("Obteniendo usuario actual desde contexto de seguridad");
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth == null || !auth.isAuthenticated() || auth.getPrincipal() == null) {
+            log.error("Token inválido o no proporcionado en la solicitud");
+            throw new BadTokenException("Token inválido o no proporcionado");
+        }
+
         UUID userId = (UUID) auth.getPrincipal();
 
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User not found."));
+                .orElseThrow(() -> {
+                    log.error("Usuario no encontrado con ID: {}", userId);
+                    return new UserNotFoundException("User not found.");
+                });
 
-        return userMapper.toDto(user);
+        log.info("Usuario actual obtenido: {}", user.getUsername());
+
+        UserDto userDto =new UserDto();
+        userDto.setId(user.getId());
+        userDto.setUsername(user.getUsername());
+        userDto.setEmail(user.getEmail());
+        userDto.setRole(user.getRole());
+        userDto.setRank(user.getRank());
+        userDto.setPoints(user.getPoints());
+
+        return userDto;
     }
 
-    //Método para obtener el perfil público de un usuario por ID
+    @Transactional
     @Override
     public UserPublicDto getUserById(UUID id){
-        User user = userRepository.findById(id)
-                .orElseThrow(()-> new UserNotFoundException("User not found."));
+        log.info("Buscando usuario público por ID: {}", id);
 
-        return userMapper.userPublicDto(user);
+        User user = userRepository.findById(id)
+                .orElseThrow(()-> {
+                    log.warn("Usuario no encontrado con ID: {}", id);
+                    return new UserNotFoundException("User not found.");
+                });
+
+        UserPublicDto dto = new UserPublicDto();
+        dto.setUsername(user.getUsername());
+        dto.setRank(user.getRank());
+        dto.setPoints(user.getPoints());
+
+        log.info("Usuario público encontrado: {}", user.getUsername());
+        return dto;
     }
 
+    @Transactional
     @Override
     public User getCurrentUserEntity() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -53,6 +86,7 @@ public class UserServiceImpl implements UserService{
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found."));
     }
+
 
 
 }
