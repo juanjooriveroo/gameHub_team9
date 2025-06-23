@@ -45,5 +45,14 @@ public class UserServiceImpl implements UserService{
         return userMapper.userPublicDto(user);
     }
 
+    @Override
+    public User getCurrentUserEntity() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UUID userId = (UUID) auth.getPrincipal();
+
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found."));
+    }
+
 
 }

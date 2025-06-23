@@ -3,10 +3,9 @@ package com.gamehub.service;
 import com.gamehub.dto.tournament.TournamentDto;
 import com.gamehub.dto.tournament.TournamentRequestDto;
 import com.gamehub.dto.tournament.TournamentResponseDto;
-import com.gamehub.exception.TournamentNotFoundException;
-import com.gamehub.exception.UserAlreadyJoinedException;
-import com.gamehub.exception.UserNotFoundException;
+import com.gamehub.exception.*;
 import com.gamehub.mapper.TournamentMapper;
+import com.gamehub.model.Role;
 import com.gamehub.model.Tournament;
 import com.gamehub.model.User;
 import com.gamehub.repository.TournamentRepository;
@@ -69,7 +68,15 @@ public class TournamentServiceImpl implements TournamentService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
-        if (tournament.getPlayers().contains(user)) {
+        if (!user.getRole().equals(Role.PLAYER)){
+            throw new UnauthorizedException("Only players can join tournaments");
+        }
+
+        if(tournament.getPlayers().size() >= tournament.getMaxPlayers()){
+            throw new TournamentFullException(tournamentId);
+        }
+
+        if(tournament.getPlayers().contains(user)){
             throw new UserAlreadyJoinedException(userId, tournamentId);
         }
 

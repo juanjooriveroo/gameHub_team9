@@ -3,8 +3,15 @@ package com.gamehub.controller;
 import com.gamehub.dto.tournament.TournamentDto;
 import com.gamehub.dto.tournament.TournamentRequestDto;
 import com.gamehub.dto.tournament.TournamentResponseDto;
+import com.gamehub.exception.TournamentFullException;
+import com.gamehub.exception.UnauthorizedException;
+import com.gamehub.exception.UserAlreadyJoinedException;
+import com.gamehub.model.Role;
+import com.gamehub.model.Tournament;
+import com.gamehub.model.User;
 import com.gamehub.service.TournamentService;
 import com.gamehub.service.TournamentServiceImpl;
+import com.gamehub.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +28,8 @@ import java.util.UUID;
 public class TournamentsController {
 
     private final TournamentService tournamentService;
+
+    private  final UserService userService;
 
     //Crear nuevo torneo
     @PostMapping
@@ -48,8 +57,19 @@ public class TournamentsController {
 
     //Unirse a torneo
     @PostMapping("/{id}/join")
-    public String joinTournament(@PathVariable UUID id) {
-
-        return null;
+    public ResponseEntity<?> joinTournament(@PathVariable UUID id) {
+        UUID userId = userService.getCurrentUserEntity().getId();
+        try {
+            tournamentService.joinTournament(id, userId);
+            return ResponseEntity.ok("Joined tournament successfully");
+        } catch (UserAlreadyJoinedException e){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        } catch (TournamentFullException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (UnauthorizedException e){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Unexpected error");
+        }
     }
 }
