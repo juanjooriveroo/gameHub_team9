@@ -33,7 +33,7 @@ public class TournamentsController {
 
     //Crear nuevo torneo
     @PostMapping
-    @PreAuthorize("hasRole=('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<TournamentResponseDto> createTournament(@RequestBody TournamentRequestDto request) {
         TournamentResponseDto response = tournamentService.createTournament(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

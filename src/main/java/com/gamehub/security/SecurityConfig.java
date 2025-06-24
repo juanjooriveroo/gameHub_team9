@@ -33,8 +33,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
 
-                        .requestMatchers("/user/me").hasAnyRole("PLAYER", "ADMIN")
-                        .requestMatchers("/user/{id}").permitAll()
+                        .requestMatchers("/users/me").hasAnyRole("PLAYER", "ADMIN")
+                        .requestMatchers("/users/{id}").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/tournaments").permitAll()
                         .requestMatchers(HttpMethod.GET, "/tournaments/{id}").permitAll()

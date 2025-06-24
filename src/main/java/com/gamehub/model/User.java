@@ -2,6 +2,8 @@ package com.gamehub.model;
 
 import java.util.List;
 import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -36,6 +38,7 @@ public class User {
 	private String email;
 
 	@Column(nullable = false, length = 100)
+	@JsonIgnore
 	@Schema(description = "Contraseña cifrada del usuario", example = "$2a$10$...")
 	private String password;
 
@@ -53,6 +56,7 @@ public class User {
 	private int points = 0;
 
 	@ManyToMany(mappedBy = "players")
+	@JsonIgnore
 	@Schema(description = "Torneos en los que participa el usuario")
 	private List<Tournament> tournaments;
 }
