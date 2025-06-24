@@ -1,5 +1,6 @@
 package com.gamehub.service;
 
+import com.gamehub.dto.RegisterRequestDto;
 import com.gamehub.dto.UserDto;
 import com.gamehub.dto.UserPublicDto;
 import com.gamehub.exception.BadTokenException;
@@ -75,4 +76,17 @@ public class UserServiceImpl implements UserService{
         log.info("Usuario público encontrado: {}", user.getUsername());
         return dto;
     }
+
+    @Transactional
+    @Override
+    public User getCurrentUserEntity() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UUID userId = (UUID) auth.getPrincipal();
+
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found."));
+    }
+
+
+
 }

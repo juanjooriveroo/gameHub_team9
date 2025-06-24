@@ -1,5 +1,8 @@
 package com.gamehub.dto;
 
+import com.gamehub.model.Role;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -8,12 +11,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(description = "Petición para registrar un nuevo usuario.")
 public class RegisterRequestDto {
 
+    @NotBlank
     @Schema(description = "Nombre de usuario", example = "playerOne")
     private String username;
 
+    @NotBlank
+    @Email
     @Schema(description = "Correo electrónico del usuario", example = "player@example.com")
     private String email;
 
+    @NotBlank
     @Schema(description = "Contraseña del usuario", example = "securePassword123")
     private String password;
+
 }

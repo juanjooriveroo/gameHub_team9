@@ -31,14 +31,14 @@ public class Tournament {
 	@Id
 	@Schema(description = "ID único del torneo", example = "f4a8b765-9d0e-4d19-994b-7e3d3e4898a5")
 	private UUID id;
-
+	
 	@Column(nullable = false, length = 100)
 	@Schema(description = "Nombre del torneo", example = "Spring Championship")
 	private String name;
-
+	
 	@Column(name = "max_players", nullable = false)
 	@Schema(description = "Número máximo de jugadores", example = "8")
-	private int maxplayers;
+	private int maxPlayers;
 
 	@Enumerated(EnumType.STRING)
 	@Column(length = 50, nullable = false)
