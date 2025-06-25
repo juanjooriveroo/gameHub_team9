@@ -86,6 +86,42 @@ public class GlobalExceptionHandler {
         return buildErrorResponse(HttpStatus.BAD_REQUEST, "Parámetro inválido: " + ex.getName());
     }
 
+    @ExceptionHandler(UserAlreadyInUseExcepcion.class)
+    @ApiResponse(
+            responseCode = "409",
+            description = "El usuario ys se ha unido al torneo",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ApiErrorResponse.class))
+    )
+    public ResponseEntity<ApiErrorResponse> handleUserAlreadyJoined(UserAlreadyInUseExcepcion ex) {
+        return buildErrorResponse(HttpStatus.CONFLICT, ex.getMessage());
+    }
+
+    @ExceptionHandler(TournamentFullException.class)
+    @ApiResponse(
+            responseCode = "400",
+            description = "El torneo ya está lleno",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ApiErrorResponse.class))
+    )
+    public ResponseEntity<ApiErrorResponse> handlerTournamentFullException(TournamentFullException ex) {
+        return buildErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    @ApiResponse(
+            responseCode = "403",
+            description = "El usuario no tiene permiso para unirse al torneo",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ApiErrorResponse.class))
+    )
+    public ResponseEntity<ApiErrorResponse> handlerUnauthorizedException(UnauthorizedException ex) {
+        return buildErrorResponse(HttpStatus.FORBIDDEN, ex.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     @ApiResponse(
             responseCode = "500",

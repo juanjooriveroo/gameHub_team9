@@ -59,17 +59,10 @@ public class TournamentsController {
     @PostMapping("/{id}/join")
     public ResponseEntity<?> joinTournament(@PathVariable UUID id) {
         UUID userId = userService.getCurrentUserEntity().getId();
-        try {
-            tournamentService.joinTournament(id, userId);
-            return ResponseEntity.ok("Joined tournament successfully");
-        } catch (UserAlreadyJoinedException e){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        } catch (TournamentFullException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        } catch (UnauthorizedException e){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Unexpected error");
-        }
+
+        tournamentService.joinTournament(id, userId);
+
+        return ResponseEntity.ok("Te has unido al torneo correctamente.");
+
     }
 }
