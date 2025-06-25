@@ -10,6 +10,7 @@ import com.gamehub.model.Tournament;
 import com.gamehub.model.User;
 import com.gamehub.repository.TournamentRepository;
 import com.gamehub.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,7 @@ public class TournamentServiceImpl implements TournamentService {
     private final UserRepository userRepository;
 
     //Creación de un torneo
+    @Transactional
     @Override
     public TournamentResponseDto createTournament(TournamentRequestDto dto) {
         Tournament tournament = tournamentMapper.toEntity(dto);
