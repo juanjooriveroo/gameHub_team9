@@ -10,6 +10,7 @@ import com.gamehub.model.Tournament;
 import com.gamehub.model.User;
 import com.gamehub.repository.TournamentRepository;
 import com.gamehub.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,7 @@ public class TournamentServiceImpl implements TournamentService {
     private final UserRepository userRepository;
 
     //Creación de un torneo
+    @Transactional
     @Override
     public TournamentResponseDto createTournament(TournamentRequestDto dto) {
         Tournament tournament = tournamentMapper.toEntity(dto);
@@ -48,7 +50,7 @@ public class TournamentServiceImpl implements TournamentService {
     @Override
     public TournamentDto getTournamentById(UUID id) {
         Tournament tournament = tournamentRepository.findById(id)
-                .orElseThrow(() -> new TournamentNotFoundException(id));
+                .orElseThrow(() -> new TournamentNotFoundException("Tournament not found"));
 
         TournamentDto dto = new TournamentDto();
         dto.setId(tournament.getId().toString());
@@ -64,7 +66,7 @@ public class TournamentServiceImpl implements TournamentService {
     @Override
     public void joinTournament(UUID tournamentId, UUID userId) {
         Tournament tournament = tournamentRepository.findById(tournamentId)
-                .orElseThrow(()-> new TournamentNotFoundException(tournamentId));
+                .orElseThrow(()-> new TournamentNotFoundException("Tournament not found"));
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
@@ -73,11 +75,11 @@ public class TournamentServiceImpl implements TournamentService {
         }
 
         if(tournament.getPlayers().size() >= tournament.getMaxPlayers()){
-            throw new TournamentFullException(tournamentId);
+            throw new TournamentFullException("Tournament is full");
         }
 
         if(tournament.getPlayers().contains(user)){
-            throw new UserAlreadyJoinedException(userId, tournamentId);
+            throw new UserAlreadyJoinedException("User already joined the tournament");
         }
 
         tournament.getPlayers().add(user);
