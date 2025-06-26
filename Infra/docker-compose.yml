@@ -10,3 +10,16 @@ services:
       - "5432:5432"
     volumes:
       - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  app:
+    build: ../target/bytes_colabs_tournaments-0.0.1-SNAPSHOT.jar
+    container_name: gamehub_app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/gamehub
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 1234
+    depends_on:
+      postgres:
+        condition: service_healthy
