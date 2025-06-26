@@ -89,7 +89,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UserAlreadyJoinedException.class)
     @ApiResponse(
             responseCode = "409",
-            description = "El usuario ys se ha unido al torneo",
+            description = "El usuario ya se ha unido al torneo",
             content = @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ApiErrorResponse.class))
