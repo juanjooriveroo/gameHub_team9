@@ -3,6 +3,7 @@ package com.gamehub.controller;
 import com.gamehub.dto.tournament.TournamentDto;
 import com.gamehub.dto.tournament.TournamentRequestDto;
 import com.gamehub.dto.tournament.TournamentResponseDto;
+import com.gamehub.exception.ApiErrorResponse;
 import com.gamehub.exception.TournamentFullException;
 import com.gamehub.exception.UnauthorizedException;
 import com.gamehub.exception.UserAlreadyJoinedException;
@@ -57,7 +58,7 @@ public class TournamentsController {
                             description = "Acceso denegado, solo administradores pueden crear torneos",
                             content = @Content(
                                     mediaType = "application/json",
-                                    schema = @Schema(implementation = UnauthorizedException.class)
+                                    schema = @Schema(implementation = ApiErrorResponse.class)
                             )
                     ),
                     @ApiResponse(
@@ -65,7 +66,7 @@ public class TournamentsController {
                             description = "Solicitud inválida, datos del torneo incorrectos",
                             content = @Content(
                                     mediaType = "application/json",
-                                    schema = @Schema(implementation = TournamentFullException.class)
+                                    schema = @Schema(implementation = ApiErrorResponse.class)
                             )
                     )
             }
@@ -94,7 +95,7 @@ public class TournamentsController {
                             description = "Error interno del servidor",
                             content = @Content(
                                     mediaType = "application/json",
-                                    schema = @Schema(implementation = TournamentFullException.class)
+                                    schema = @Schema(implementation = ApiErrorResponse.class)
                             )
                     )
             }
@@ -122,7 +123,7 @@ public class TournamentsController {
                             description = "Torneo no encontrado",
                             content = @Content(
                                     mediaType = "application/json",
-                                    schema = @Schema(implementation = TournamentFullException.class)
+                                    schema = @Schema(implementation = ApiErrorResponse.class)
                             )
                     ),
                     @ApiResponse(
@@ -130,7 +131,7 @@ public class TournamentsController {
                             description = "Error interno del servidor",
                             content = @Content(
                                     mediaType = "application/json",
-                                    schema = @Schema(implementation = TournamentFullException.class)
+                                    schema = @Schema(implementation = ApiErrorResponse.class)
                             )
                     )
             }
@@ -160,7 +161,7 @@ public class TournamentsController {
                             description = "Acceso denegado, solo jugadores pueden unirse a torneos",
                             content = @Content(
                                     mediaType = "application/json",
-                                    schema = @Schema(implementation = UnauthorizedException.class)
+                                    schema = @Schema(implementation = ApiErrorResponse.class)
                             )
                     ),
                     @ApiResponse(
@@ -168,7 +169,14 @@ public class TournamentsController {
                             description = "Torneo no encontrado o el usuario ya se ha unido al torneo",
                             content = @Content(
                                     mediaType = "application/json",
-                                    schema = @Schema(implementation = UserAlreadyJoinedException.class)
+                                    schema = @Schema(implementation = ApiErrorResponse.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "409",
+                            description = "El usuario ya se ha unido al torneo",
+                            content = @Content(
+                                    schema = @Schema(implementation = ApiErrorResponse.class)
                             )
                     ),
                     @ApiResponse(
@@ -176,7 +184,7 @@ public class TournamentsController {
                             description = "Torneo lleno, no se puede unir más jugadores",
                             content = @Content(
                                     mediaType = "application/json",
-                                    schema = @Schema(implementation = TournamentFullException.class)
+                                    schema = @Schema(implementation = ApiErrorResponse.class)
                             )
                     )
             }

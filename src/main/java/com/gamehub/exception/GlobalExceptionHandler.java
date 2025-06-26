@@ -86,7 +86,7 @@ public class GlobalExceptionHandler {
         return buildErrorResponse(HttpStatus.BAD_REQUEST, "Parámetro inválido: " + ex.getName());
     }
 
-    @ExceptionHandler(UserAlreadyInUseExcepcion.class)
+    @ExceptionHandler(UserAlreadyJoinedException.class)
     @ApiResponse(
             responseCode = "409",
             description = "El usuario ys se ha unido al torneo",
@@ -94,7 +94,7 @@ public class GlobalExceptionHandler {
                     mediaType = "application/json",
                     schema = @Schema(implementation = ApiErrorResponse.class))
     )
-    public ResponseEntity<ApiErrorResponse> handleUserAlreadyJoined(UserAlreadyInUseExcepcion ex) {
+    public ResponseEntity<ApiErrorResponse> handleUserAlreadyJoined(UserAlreadyJoinedException ex) {
         return buildErrorResponse(HttpStatus.CONFLICT, ex.getMessage());
     }
 
