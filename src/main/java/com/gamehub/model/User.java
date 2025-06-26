@@ -52,7 +52,8 @@ public class User {
 	private String rank;
 
 	@Column(nullable = false)
-	@Schema(description = "Puntos acumulados del usuario", example = "1200")
+	@JsonIgnore
+	@Schema(description = "Puntos acumulados del usuario en el torneo", example = "1200")
 	private int points = 0;
 
 	@ManyToMany(mappedBy = "players")
