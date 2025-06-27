@@ -122,6 +122,30 @@ public class GlobalExceptionHandler {
         return buildErrorResponse(HttpStatus.FORBIDDEN, ex.getMessage());
     }
 
+    @ExceptionHandler(ResultInvalidException.class)
+    @ApiResponse(
+            responseCode = "400",
+            description = "Se está enviando una entrada incorrecta (un valor inválido para el enum).",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ApiErrorResponse.class))
+    )
+    public ResponseEntity<ApiErrorResponse> handlerResultInvalidException(ResultInvalidException ex) {
+        return buildErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+
+    @ExceptionHandler(MatchNotFoundException.class)
+    @ApiResponse(
+            responseCode = "404",
+            description = "Match no encontrado",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ApiErrorResponse.class))
+    )
+    public ResponseEntity<ApiErrorResponse> handlerMatchNotFoundException(MatchNotFoundException ex) {
+        return buildErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     @ApiResponse(
             responseCode = "500",
