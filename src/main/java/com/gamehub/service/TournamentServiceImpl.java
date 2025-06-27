@@ -86,4 +86,9 @@ public class TournamentServiceImpl implements TournamentService {
         tournamentRepository.save(tournament);
     }
 
+    @Override
+    public Optional<Tournament> findById(UUID id) {
+        return tournamentRepository.findById(id);
+    }
+
 }
