@@ -41,6 +41,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/tournaments").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/tournaments/{id}/join").hasRole("PLAYER")
 
+                        .requestMatchers(HttpMethod.GET, "/matches/{id}").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/matches/{id}/result").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/matches/generate/{id}").hasRole("ADMIN")
+
                         .requestMatchers(HttpMethod.GET, "/tournaments/{id}/messages").hasAnyRole("PLAYER", "ADMIN")
                         .requestMatchers(HttpMethod.POST, "/tournaments/{id}/messages").hasAnyRole("PLAYER", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/matches/{id}/messages").hasAnyRole("PLAYER", "ADMIN")
