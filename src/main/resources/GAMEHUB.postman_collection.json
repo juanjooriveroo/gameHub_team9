@@ -17,7 +17,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4MTgyYTMxMC1mZTEwLTQyNGEtODU5ZS05Zjk0ZmZkMzAwOTgiLCJpYXQiOjE3NTA2OTIwMTMsImV4cCI6MTc1MDY5NTYxM30.bqw4rj4WN_JrxqfEO1_e0Wwip2nOclIBNpNQ2PguPwI",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0ZTUyMDcxMi0wYThjLTRjMmQtYWEzMC00MDMxZDI0MzE0MzIiLCJpYXQiOjE3NTA3ODQ5ODMsImV4cCI6MTc1MDc4ODU4M30.2bZsBTDA9p1kT6c51rmQR7uRyqqV6fEyLqxyKQ3j2YU",
 									"type": "string"
 								}
 							]
@@ -54,14 +54,7 @@
 					"name": "ID",
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4MTgyYTMxMC1mZTEwLTQyNGEtODU5ZS05Zjk0ZmZkMzAwOTgiLCJpYXQiOjE3NTAzNjg0NTUsImV4cCI6MTc1MDM3MjA1NX0.RoZrMfvX43H9uqvooOHoj8DJN1cLgXArx5sRgN5IoOY",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "POST",
 						"header": [
@@ -73,7 +66,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:8080/api/users/8182a310-fe10-424a-859e-9f94ffd30098",
+							"raw": "http://127.0.0.1:8080/api/users/09f4486d-6289-4070-95cc-ba551b7705bb",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -85,7 +78,7 @@
 							"path": [
 								"api",
 								"users",
-								"8182a310-fe10-424a-859e-9f94ffd30098"
+								"09f4486d-6289-4070-95cc-ba551b7705bb"
 							]
 						}
 					},
@@ -103,7 +96,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"username\": \"player123\",\n  \"email\": \"player123@example.com\",\n  \"password\": \"securePassword123\"\n}",
+							"raw": "{\n  \"username\": \"juanjo2\",\n  \"email\": \"juanjo2@gmail.com\",\n  \"password\": \"Juanjo1234\",\n  \"role\": \"ADMIN\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -136,7 +129,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\": \"player123@example.com\",\n  \"password\": \"securePassword123\"\n}",
+							"raw": "{\n  \"email\": \"juanjo@gmail.com\",\n  \"password\": \"Juanjo1234\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -161,6 +154,577 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "TOURNAMENTS",
+			"item": [
+				{
+					"name": "CREAR TORUNAMENT",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZTA2MThiMS1kNTY1LTQzOGQtYWQ5Mi03ZmM5MTFiNmQxZTEiLCJpYXQiOjE3NTA3ODUwMTksImV4cCI6MTc1MDc4ODYxOX0.lQibYNVZ3SyAmGHOUxTzhJnMoJjTh94ZiMbBkZLUZQc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Bearer",
+								"value": " eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4MTgyYTMxMC1mZTEwLTQyNGEtODU5ZS05Zjk0ZmZkMzAwOTgiLCJpYXQiOjE3NTAzNjg0NTUsImV4cCI6MTc1MDM3MjA1NX0.RoZrMfvX43H9uqvooOHoj8DJN1cLgXArx5sRgN5IoOY ",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"PRUEBA DE EVENTO\",\n    \"maxPlayers\": 10,\n    \"status\": \"CREATED\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/tournaments",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"tournaments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VER TOURNAMENTS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Bearer",
+								"value": " eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4MTgyYTMxMC1mZTEwLTQyNGEtODU5ZS05Zjk0ZmZkMzAwOTgiLCJpYXQiOjE3NTAzNjg0NTUsImV4cCI6MTc1MDM3MjA1NX0.RoZrMfvX43H9uqvooOHoj8DJN1cLgXArx5sRgN5IoOY ",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"PRUEBA DE EVENTO\",\n    \"maxPlayers\": 10,\n    \"status\": \"CREATED\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/tournaments",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"tournaments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VER TOURNAMENT CONCRETO",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Bearer",
+								"value": " eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4MTgyYTMxMC1mZTEwLTQyNGEtODU5ZS05Zjk0ZmZkMzAwOTgiLCJpYXQiOjE3NTAzNjg0NTUsImV4cCI6MTc1MDM3MjA1NX0.RoZrMfvX43H9uqvooOHoj8DJN1cLgXArx5sRgN5IoOY ",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"PRUEBA DE EVENTO\",\n    \"maxPlayers\": 10,\n    \"status\": \"CREATED\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/tournaments/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"tournaments",
+								"aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UNIRSE TOURNAMENT",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0ZTUyMDcxMi0wYThjLTRjMmQtYWEzMC00MDMxZDI0MzE0MzIiLCJpYXQiOjE3NTEwNDkwODYsImV4cCI6MTc1MTA1MjY4Nn0._WBwouIF70XxKNljRN7TGMSiYahZXJrK0wbDmL0Cya8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Bearer",
+								"value": " eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4MTgyYTMxMC1mZTEwLTQyNGEtODU5ZS05Zjk0ZmZkMzAwOTgiLCJpYXQiOjE3NTAzNjg0NTUsImV4cCI6MTc1MDM3MjA1NX0.RoZrMfvX43H9uqvooOHoj8DJN1cLgXArx5sRgN5IoOY ",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"PRUEBA DE EVENTO\",\n    \"maxPlayers\": 10,\n    \"status\": \"CREATED\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/tournaments/f22d1f4b-52a1-42bc-98da-e421aa8ea33a/join",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"tournaments",
+								"f22d1f4b-52a1-42bc-98da-e421aa8ea33a",
+								"join"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RANKING",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Bearer",
+								"value": " eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4MTgyYTMxMC1mZTEwLTQyNGEtODU5ZS05Zjk0ZmZkMzAwOTgiLCJpYXQiOjE3NTAzNjg0NTUsImV4cCI6MTc1MDM3MjA1NX0.RoZrMfvX43H9uqvooOHoj8DJN1cLgXArx5sRgN5IoOY ",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"PRUEBA DE EVENTO\",\n    \"maxPlayers\": 10,\n    \"status\": \"CREATED\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/tournaments/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa/ranking",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"tournaments",
+								"aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+								"ranking"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MATCHES",
+			"item": [
+				{
+					"name": "CREAR EMPAREJAMIENTO",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZTA2MThiMS1kNTY1LTQzOGQtYWQ5Mi03ZmM5MTFiNmQxZTEiLCJpYXQiOjE3NTA5Nzk0MTEsImV4cCI6MTc1MDk4MzAxMX0.txdxo3ScKCGhzp0fy8dtkoh7sDoygDy6q0SnEJwmCjA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Bearer",
+								"value": " eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4MTgyYTMxMC1mZTEwLTQyNGEtODU5ZS05Zjk0ZmZkMzAwOTgiLCJpYXQiOjE3NTAzNjg0NTUsImV4cCI6MTc1MDM3MjA1NX0.RoZrMfvX43H9uqvooOHoj8DJN1cLgXArx5sRgN5IoOY ",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/matches/generate/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"matches",
+								"generate",
+								"aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VER MATCH",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Bearer",
+								"value": " eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4MTgyYTMxMC1mZTEwLTQyNGEtODU5ZS05Zjk0ZmZkMzAwOTgiLCJpYXQiOjE3NTAzNjg0NTUsImV4cCI6MTc1MDM3MjA1NX0.RoZrMfvX43H9uqvooOHoj8DJN1cLgXArx5sRgN5IoOY ",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/matches/930dbc7e-9b03-46a1-8a38-99da1db9519f",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"matches",
+								"930dbc7e-9b03-46a1-8a38-99da1db9519f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ACTUALIZAR MATCH",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZTA2MThiMS1kNTY1LTQzOGQtYWQ5Mi03ZmM5MTFiNmQxZTEiLCJpYXQiOjE3NTA5Nzk0MTEsImV4cCI6MTc1MDk4MzAxMX0.txdxo3ScKCGhzp0fy8dtkoh7sDoygDy6q0SnEJwmCjA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Bearer",
+								"value": " eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4MTgyYTMxMC1mZTEwLTQyNGEtODU5ZS05Zjk0ZmZkMzAwOTgiLCJpYXQiOjE3NTAzNjg0NTUsImV4cCI6MTc1MDM3MjA1NX0.RoZrMfvX43H9uqvooOHoj8DJN1cLgXArx5sRgN5IoOY ",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"result\": \"PLAYER2_WIN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/matches/7d73e475-a598-454e-9740-e66c3255727d/result",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"matches",
+								"7d73e475-a598-454e-9740-e66c3255727d",
+								"result"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MESSAGES",
+			"item": [
+				{
+					"name": "MATCH MESSAGES",
+					"item": [
+						{
+							"name": "VER MENSAJES",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZTA2MThiMS1kNTY1LTQzOGQtYWQ5Mi03ZmM5MTFiNmQxZTEiLCJpYXQiOjE3NTEwNDQ4OTgsImV4cCI6MTc1MTA0ODQ5OH0.-eJvC7kGL7rl8kBpTLOiOF_QltNyKWKcpQqjXqT5AXQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Bearer",
+										"value": " eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4MTgyYTMxMC1mZTEwLTQyNGEtODU5ZS05Zjk0ZmZkMzAwOTgiLCJpYXQiOjE3NTAzNjg0NTUsImV4cCI6MTc1MDM3MjA1NX0.RoZrMfvX43H9uqvooOHoj8DJN1cLgXArx5sRgN5IoOY ",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8080/api/matches/a9d93874-1961-4328-a591-ca56b292f905/messages",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"matches",
+										"a9d93874-1961-4328-a591-ca56b292f905",
+										"messages"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ENVIAR MESSAGES",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZTA2MThiMS1kNTY1LTQzOGQtYWQ5Mi03ZmM5MTFiNmQxZTEiLCJpYXQiOjE3NTEwNDQ4OTgsImV4cCI6MTc1MTA0ODQ5OH0.-eJvC7kGL7rl8kBpTLOiOF_QltNyKWKcpQqjXqT5AXQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Bearer",
+										"value": " eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4MTgyYTMxMC1mZTEwLTQyNGEtODU5ZS05Zjk0ZmZkMzAwOTgiLCJpYXQiOjE3NTAzNjg0NTUsImV4cCI6MTc1MDM3MjA1NX0.RoZrMfvX43H9uqvooOHoj8DJN1cLgXArx5sRgN5IoOY ",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"content\": \"Hola jugadores, bienvenidos a esta prueba.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/api/matches/a9d93874-1961-4328-a591-ca56b292f905/messages",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"matches",
+										"a9d93874-1961-4328-a591-ca56b292f905",
+										"messages"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "TOURNAMENT MESSAGES",
+					"item": [
+						{
+							"name": "VER MESSAGES",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0ZTUyMDcxMi0wYThjLTRjMmQtYWEzMC00MDMxZDI0MzE0MzIiLCJpYXQiOjE3NTEwNDkwODYsImV4cCI6MTc1MTA1MjY4Nn0._WBwouIF70XxKNljRN7TGMSiYahZXJrK0wbDmL0Cya8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Bearer",
+										"value": " eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4MTgyYTMxMC1mZTEwLTQyNGEtODU5ZS05Zjk0ZmZkMzAwOTgiLCJpYXQiOjE3NTAzNjg0NTUsImV4cCI6MTc1MDM3MjA1NX0.RoZrMfvX43H9uqvooOHoj8DJN1cLgXArx5sRgN5IoOY ",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8080/api/tournaments/f22d1f4b-52a1-42bc-98da-e421aa8ea33a/messages",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"tournaments",
+										"f22d1f4b-52a1-42bc-98da-e421aa8ea33a",
+										"messages"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ENVIAR MESSAGES Copy",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0ZTUyMDcxMi0wYThjLTRjMmQtYWEzMC00MDMxZDI0MzE0MzIiLCJpYXQiOjE3NTEwNDkwODYsImV4cCI6MTc1MTA1MjY4Nn0._WBwouIF70XxKNljRN7TGMSiYahZXJrK0wbDmL0Cya8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Bearer",
+										"value": " eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4MTgyYTMxMC1mZTEwLTQyNGEtODU5ZS05Zjk0ZmZkMzAwOTgiLCJpYXQiOjE3NTAzNjg0NTUsImV4cCI6MTc1MDM3MjA1NX0.RoZrMfvX43H9uqvooOHoj8DJN1cLgXArx5sRgN5IoOY ",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"content\": \"Hola jugadores, bienvenidos a esta prueba.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/api/tournaments/f22d1f4b-52a1-42bc-98da-e421aa8ea33a/messages",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"tournaments",
+										"f22d1f4b-52a1-42bc-98da-e421aa8ea33a",
+										"messages"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
