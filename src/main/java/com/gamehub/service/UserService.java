@@ -5,6 +5,7 @@ import com.gamehub.dto.UserDto;
 import com.gamehub.dto.UserPublicDto;
 import com.gamehub.model.User;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface UserService {
@@ -14,5 +15,7 @@ public interface UserService {
     UserPublicDto getUserById(UUID userId);
 
     User getCurrentUserEntity();
+
+    Optional<User> findById(UUID userId);
 
 }

@@ -1,6 +1,5 @@
-package com.gamehub.dto;
+package com.gamehub.dto.message;
 
-import com.gamehub.model.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import java.time.LocalDateTime;
@@ -12,9 +11,10 @@ public class MessageDto {
     @Schema(description = "Contenido del mensaje", example = "¡Hola, bienvenido a GameHub!")
     private String content;
 
-    @Schema(description = "Marca de tiempo del mensaje", example = "2023-10-01")
+    @Schema(description = "Fecha y hora del mensaje", example = "2025-06-23T15:45:00")
     private LocalDateTime timestamp;
 
-    @Schema(description = "Usuario que envió el mensaje", example = "Manolo")
+    @Schema(description = "Nombre del usuario que envió el mensaje", example = "Manolo")
     private String sender;
+
 }
