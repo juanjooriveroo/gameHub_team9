@@ -16,6 +16,4 @@ public interface UserService {
 
     User getCurrentUserEntity();
 
-    Optional<User> findById(UUID userId);
-
 }
