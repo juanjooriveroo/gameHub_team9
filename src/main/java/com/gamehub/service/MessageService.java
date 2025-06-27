@@ -1,5 +1,6 @@
 package com.gamehub.service;
 
+import com.gamehub.dto.message.MessageCreatedDto;
 import com.gamehub.dto.message.MessageDto;
 
 import java.util.List;
@@ -9,5 +10,5 @@ public interface MessageService {
 
     List<MessageDto> findByTournamentIdMessages(UUID tournamentId);
 
-    MessageDto sendTournamentMessage(UUID tournamentId, MessageDto messageDto, UUID senderId);
+    MessageDto sendTournamentMessage(UUID tournamentId, MessageCreatedDto messageDto);
 }

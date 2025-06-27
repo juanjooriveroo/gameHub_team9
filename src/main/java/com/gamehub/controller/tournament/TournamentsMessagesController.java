@@ -1,5 +1,6 @@
 package com.gamehub.controller.tournament;
 
+import com.gamehub.dto.message.MessageCreatedDto;
 import com.gamehub.dto.message.MessageDto;
 import com.gamehub.exception.ApiErrorResponse;
 import com.gamehub.service.MessageService;
@@ -63,12 +64,49 @@ public class TournamentsMessagesController {
         return ResponseEntity.ok(messages);
     }
 
-    //Enviar mensaje al torneo
+    @Operation(
+            summary = "Enviar mensaje de torneo",
+            description = "Envia mensaje de un torneo concreto pasado por PathVariable en formato UUID id y se extrae el usuario que lo manda via Bearer token. Devuelve un codigo 200 unicamente",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Envio exitoso",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = MessageDto.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Torneo no encontrado",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ApiErrorResponse.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "401",
+                            description = "Token no válido o caducado",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ApiErrorResponse.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Error interno del servidor",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ApiErrorResponse.class)
+                            )
+                    )
+            }
+    )
     @PostMapping
     @PreAuthorize("hasAnyRole('PLAYER', 'ADMIN')")
-    public String sendMessageToTournament(@PathVariable UUID id) {
+    public ResponseEntity<?> sendMessageToTournament(@PathVariable UUID id, @RequestBody MessageCreatedDto messageDtoRequest) {
 
-        return null;
+        MessageDto messageDto = messageService.sendTournamentMessage(id, messageDtoRequest);
+        return ResponseEntity.ok(messageDto);
     }
 
 }

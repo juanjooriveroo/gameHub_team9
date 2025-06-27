@@ -1,5 +1,6 @@
 package com.gamehub.service;
 
+import com.gamehub.dto.message.MessageCreatedDto;
 import com.gamehub.dto.message.MessageDto;
 import com.gamehub.exception.TournamentNotFoundException;
 import com.gamehub.exception.UnauthorizedException;
@@ -8,6 +9,7 @@ import com.gamehub.model.Message;
 import com.gamehub.model.Tournament;
 import com.gamehub.model.User;
 import com.gamehub.repository.MessageRepository;
+import com.gamehub.repository.TournamentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +28,7 @@ public class MessageServiceImpl implements MessageService {
     private final TournamentService tournamentService;
 
     private final UserService userService;
-
-    private final MatchService matchService;
+    private final TournamentRepository tournamentRepository;
 
     @Override
     public List<MessageDto> findByTournamentIdMessages(UUID tournamentId) {
@@ -37,15 +38,10 @@ public class MessageServiceImpl implements MessageService {
                 .collect(Collectors.toList());
     }
 
-    public MessageDto sendTournamentMessage(UUID tournamentId, MessageDto messageDto, UUID senderId) {
+    public MessageDto sendTournamentMessage(UUID tournamentId, MessageCreatedDto messageDto) {
+        User user = userService.getCurrentUserEntity();
 
-        Tournament tournament = tournamentService.findById(tournamentId)
-                .orElseThrow(() -> new TournamentNotFoundException("Tournament not found"));
-
-        User sender = userService.findById(senderId)
-                .orElseThrow(() -> new UnauthorizedException("User not found"));
-
-        Message message = messageMapper.toEntity(messageDto, sender, tournament);
+        Message message = messageMapper.toEntity(messageDto, user, tournamentId);
 
         Message savedMessage = messageRepository.save(message);
 
