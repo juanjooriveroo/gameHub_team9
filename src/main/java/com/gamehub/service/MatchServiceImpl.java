@@ -3,6 +3,7 @@ package com.gamehub.service;
 import com.gamehub.dto.match.*;
 import com.gamehub.exception.MatchNotFoundException;
 import com.gamehub.exception.ResultInvalidException;
+import com.gamehub.exception.TournamentNotFoundException;
 import com.gamehub.model.Match;
 import com.gamehub.model.Result;
 import com.gamehub.model.Tournament;
@@ -27,7 +28,7 @@ public class MatchServiceImpl implements MatchService {
     @Override
     public void generateMatches(UUID tournamentId) {
         Tournament tournament = tournamentRepository.findById(tournamentId)
-                .orElseThrow(() -> new RuntimeException("Torneo no encontrado"));
+                .orElseThrow(() -> new TournamentNotFoundException("Torneo no encontrado"));
 
         List<User> players = tournament.getPlayers();
         Collections.shuffle(players);
