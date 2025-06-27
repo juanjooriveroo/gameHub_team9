@@ -2,6 +2,7 @@ package com.gamehub.controller.matches;
 
 import com.gamehub.dto.match.*;
 import com.gamehub.service.MatchService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,11 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/matches")
+@RequiredArgsConstructor
+@RequestMapping("/matches")
 public class MatchController {
 
-    @Autowired
-    private MatchService matchService;
+    private final MatchService matchService;
 
     @PostMapping("/generate/{tournamentId}")
     public ResponseEntity<Void> generateMatches(@PathVariable UUID tournamentId) {
