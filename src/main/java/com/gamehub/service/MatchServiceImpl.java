@@ -30,7 +30,7 @@ public class MatchServiceImpl implements MatchService {
         Tournament tournament = tournamentRepository.findById(tournamentId)
                 .orElseThrow(() -> new TournamentNotFoundException("Torneo no encontrado"));
 
-        List<User> players = tournament.getPlayers();
+        List<User> players = new ArrayList<>(tournament.getPlayers());
         Collections.shuffle(players);
 
         List<Match> matches = matchRepository.findAllByTournament_Id(tournamentId);

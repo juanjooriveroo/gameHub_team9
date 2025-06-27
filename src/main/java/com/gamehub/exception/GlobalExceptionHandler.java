@@ -146,6 +146,18 @@ public class GlobalExceptionHandler {
         return buildErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 
+    @ExceptionHandler(AnyMessageMatchException.class)
+    @ApiResponse(
+            responseCode = "404",
+            description = "No hay mensajes de este partido",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ApiErrorResponse.class))
+    )
+    public ResponseEntity<ApiErrorResponse> handlerAnyMessageMatchException(AnyMessageMatchException ex) {
+        return buildErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     @ApiResponse(
             responseCode = "500",
